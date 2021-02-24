@@ -19,7 +19,7 @@ const volume = navigator.volumeManager;
 
 const offlineElement = document.querySelector('.offline');
 const softKeyEnterElement = document.querySelector('.softkey__enter');
-const mbpsRateElement = document.querySelector('.mbps__rate');
+const kbpsRateElement = document.querySelector('.kbps__rate');
 
 const toggleOfflineAlert = () => {
     const isOnline = navigator.onLine;
@@ -75,17 +75,17 @@ document.addEventListener('keydown', event => {
 
     if (keyPressed === '1') {
         player.src = LIVE_HIGH_QUALITY_URL;
-        mbpsRateElement.innerHTML = '256';
+        kbpsRateElement.innerHTML = '256';
     }
 
     if (keyPressed === '2') {
         player.src = LIVE_MEDIUM_QUALITY_URL;
-        mbpsRateElement.innerHTML = '128';
+        kbpsRateElement.innerHTML = '128';
     }
 
     if (keyPressed === '3') {
         player.src = LIVE_LOW_QUALITY_URL;
-        mbpsRateElement.innerHTML = '32';
+        kbpsRateElement.innerHTML = '32';
     }
 
     if (isPlaying) {

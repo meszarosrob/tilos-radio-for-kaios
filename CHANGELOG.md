@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move Netlify related stuff to a separate repo
 - Show no internet connection alert
 - Display the name and schedule of live show
+- Fix data transmission unit
 
 ## [0.3.0] - 2021-01-21
 ### Added
