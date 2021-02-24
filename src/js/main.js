@@ -41,6 +41,7 @@ document.addEventListener('keydown', event => {
     } else {
         player.play();
         softKeyEnterElement.innerHTML = 'Pause';
+        updateSchedule();
     }
 
     isPlaying = !isPlaying;
@@ -90,6 +91,7 @@ document.addEventListener('keydown', event => {
 
     if (isPlaying) {
         player.play();
+        updateSchedule();
     }
 });
 
@@ -108,22 +110,31 @@ const formattedTime = (timestamp) => {
         return String(hourOrMinute).padStart(2, '0');
     };
 
-    return `${asDoubleDigit(date.getHours())}:${asDoubleDigit(date.getMinutes())}`;
+    return `${asDoubleDigit(date.getHours())}:${asDoubleDigit(
+        date.getMinutes())}`;
 };
 
-fetch(DAILY_SCHEDULE_URL).then(response => response.json()).then(data => {
-    const nowTime = new Date().getTime();
-    const matchedEpisodes = data.filter(episode => episode.plannedFrom <= nowTime && episode.plannedTo > nowTime);
+const updateSchedule = () => {
+    fetch(DAILY_SCHEDULE_URL).then(response => response.json()).then(data => {
+        const nowTime = new Date().getTime();
+        const matchedEpisodes = data.filter(
+            episode => episode.plannedFrom <= nowTime && episode.plannedTo >
+                nowTime);
 
-    if (matchedEpisodes.length === 0) {
-        return;
-    }
+        if (matchedEpisodes.length === 0) {
+            return;
+        }
 
-    const currentEpisode = matchedEpisodes[0];
+        const currentEpisode = matchedEpisodes[0];
 
-    showNameElement.innerHTML = currentEpisode.show.name;
-    showScheduleFromElement.innerHTML = formattedTime(currentEpisode.plannedFrom);
-    showScheduleUntilElement.innerHTML = formattedTime(currentEpisode.plannedTo);
-});
+        showNameElement.innerHTML = currentEpisode.show.name;
+        showScheduleFromElement.innerHTML = formattedTime(
+            currentEpisode.plannedFrom);
+        showScheduleUntilElement.innerHTML = formattedTime(
+            currentEpisode.plannedTo);
+    });
+};
+
+updateSchedule();
 
 toggleOfflineAlert();
